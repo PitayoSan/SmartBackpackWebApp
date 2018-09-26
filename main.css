@@ -1,0 +1,23 @@
+#title{
+    color: #ff9933;
+}
+
+body{
+    background-color: #FFFFC7;
+}
+
+th{
+    color: #B0413E;
+}
+
+#Jumbotron{
+    background-color: #548687;
+    color: #473335;
+}
+
+#titulo1,#titulo2{
+    color: #473335;
+}
+#valorDeLuz,#valorDeMovimiento,#valorDeHumedad,#valorDeTemperatura,#valorDeDistancia{
+    color: #1A1F16;
+}
