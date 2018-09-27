@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyA7h5OnkhzoiUFbtaQ-YGXxeORnMe6ekTw",
+        authDomain: "semanai-iot.firebaseapp.com",
+        databaseURL: "https://semanai-iot.firebaseio.com",
+        projectId: "semanai-iot",
+        storageBucket: "semanai-iot.appspot.com",
+        messagingSenderId: "105872487113"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
+    <link rel="stylesheet" href="css/main.css">
+    <title>Inicio de sesion</title>
+  </head>
+  <body>
+    <div class="form-group" id="loginSheet">
+      <div class="row">
+        <div class="offset-1 col-md-5">
+          <div class="form-group">
+            <h1>¿Tienes cuenta? Haz tu log in.</h1>
+            <label for="InputEmail">Correo:</label>
+            <input type="email" class="form-control" id="logInEmail" aria-describedby="emailHelp" placeholder="Introduce tu correo">
+            <small id="emailHelp" class="form-text text-muted">No compartiremos tu correo con alguien más.</small>
+          </div>
+          <div class="form-group">
+            <label for="InputPassword">Contraseña</label>
+            <input type="password" class="form-control" id="logInPassword" placeholder="Contraseña">
+          </div><hr><br>
+          <button type="submit" class="btn btn-primary" onclick="logIn()">Acceder</button>
+        </div>
+        <div class="offset-1 col-md-3">
+          <h2 class="form-text text-muted">¿No tienes cuenta? Regístrate, es gratis.</h2>
+          <div class="form-group">
+            <label for="SignInEmail">Direccion de correo</label>
+            <input type="email" class="form-control" id="SignInEmail" placeholder="name@example.com">
+          </div>
+          <div class="form-group">
+            <label for="InputPassword">Contraseña</label>
+            <input type="password" class="form-control" id="SignInPassword" placeholder="Contraseña">
+          </div>
+          <div class="form-group">
+            <label for="InputPassword">Confirmar contraseña</label>
+            <input type="password" class="form-control" id="SignInRePassword" placeholder="Contraseña">
+          </div><hr>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Para registrarte necesitar haber aceptado previamente los términos y condiciones. Para leerlos da click aquí.<br><br><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#termYCond">Mostrar Term. y Cond.</button></label>
+            <div class="modal fade" id="termYCond" role="dialog">
+              <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Términos y condiciones de uso</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr><br>
+          <button type="submit" class="btn btn-primary" onclick="register()">Registrarse</button>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" id="logedSheet">
+        <div class="row">
+            <div class="offset-1 col-md-4">
+                <h1 id="title">IOT - Semana i</h1>
+            </div>
+           <div class="offset-3  col-md-1">
+                <img src="https://firebase.google.com/_static/images/firebase/touchicon-180.png" height="45px" width="45px">
+            </div>
+            <div class="col-md-1">
+              <button type="submit" class="btn btn-primary btnTop" onclick="logOut()">Log out</button>
+            </div>
+        </div>
+        <hr>
+        <div class="jumbotron text-center jumbotron-fluid" id="Jumbotron">
+            <h1>Lectura de sensores</h1>
+        </div>
+        <div class="offset-2 col-md-8">
+            <table class="table table-bordered table-hover">
+              <thead class="thead table-light">
+                <tr>
+                  <th>Sensores</th>
+                  <th>Valores</th>
+                </tr>
+              </thead>
+              <tbody class="tbody">
+                <tr id="rLuz" class="table-info">
+                    <th>Luz:</th>
+                    <td id="tLuz"></td>
+                </tr>
+                <tr id="rMov" class="table-info">
+                    <th>Movimiento:</th>
+                    <td id="tMov"></td>
+                </tr>
+                <tr id="rHum" class="table-info">
+                    <th>Humedad:</th>
+                    <td id="tHum"></td>
+                </tr>
+                <tr id="rTemp" class="table-info">
+                    <th>Temperatura:</th>
+                    <td id="tTemp"></td>
+                </tr>
+                <tr id="rDist" class="table-info">
+                    <th>Distancia</th>
+                    <td id="tDist"></td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
